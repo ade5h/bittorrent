@@ -1,7 +1,9 @@
 package decoder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BencodedDecorder {
     public static DecoderVO decodeBencode(String bencodedString, int startIndex) {
@@ -13,6 +15,9 @@ public class BencodedDecorder {
         }
         else if(bencodedString.charAt(startIndex) == 'l') {
             return decodeList(bencodedString, startIndex);
+        }
+        else if(bencodedString.charAt(startIndex) == 'd') {
+            return decodeDictionary(bencodedString, startIndex);
         }
         else {
             throw new RuntimeException("Not a valid bencoded string");
@@ -65,6 +70,25 @@ public class BencodedDecorder {
 
         return new DecoderVO(
                 decodedList,
+                currentIndex+1
+        );
+    }
+
+    private static DecoderVO decodeDictionary(String bencodedString, int startIndex) {
+        Map<String, Object> decodedDict = new HashMap<>();
+
+        int currentIndex = startIndex+1;
+
+        while(bencodedString.charAt(currentIndex) != 'e') {
+            DecoderVO keyDecoderVO = decodeBencode(bencodedString, currentIndex);
+            DecoderVO valueDecoderVO = decodeBencode(bencodedString, keyDecoderVO.getNextIndex());
+
+            decodedDict.put(keyDecoderVO.getDecodedObj().toString(), valueDecoderVO.getDecodedObj());
+            currentIndex = valueDecoderVO.getNextIndex();
+        }
+
+        return new DecoderVO(
+                decodedDict,
                 currentIndex+1
         );
     }
