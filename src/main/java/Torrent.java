@@ -1,6 +1,8 @@
 import com.dampcake.bencode.Bencode;
 import com.dampcake.bencode.Type;
 
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
@@ -19,7 +21,7 @@ public class Torrent {
         byte[] bencodedByteArray = bencode.encode(infoDict);
 
         this.infoHash = hashTheByteArray(bencodedByteArray);
-        this.trackerUrl = metaInfo.get("announce").toString();
+        this.trackerUrl = StandardCharsets.UTF_8.decode((ByteBuffer) metaInfo.get("announce")).toString();
         this.length = (long) infoDict.get("length");
     }
 
