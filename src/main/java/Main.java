@@ -20,7 +20,7 @@ public class Main {
             }
             System.out.println(gson.toJson(decoded));
         }
-        if("info".equals(command)) {
+        else if("info".equals(command)) {
             String torrentFileName = args[1];
 
             File torrentFile = new File(torrentFileName);
