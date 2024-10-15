@@ -2,7 +2,6 @@ package torrent;
 
 import com.dampcake.bencode.Bencode;
 import com.dampcake.bencode.Type;
-import lombok.Getter;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -12,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Getter
 public class Torrent {
     private String trackerUrl;
     private long length;
@@ -96,5 +94,25 @@ public class Torrent {
         }
 
         return hexString.toString();
+    }
+
+    public String getTrackerUrl() {
+        return trackerUrl;
+    }
+
+    public long getLength() {
+        return length;
+    }
+
+    public String getInfoHash() {
+        return infoHash;
+    }
+
+    public long getPieceLength() {
+        return pieceLength;
+    }
+
+    public List<String> getPieceHashes() {
+        return pieceHashes;
     }
 }

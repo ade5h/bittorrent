@@ -14,7 +14,7 @@ public class TrackerService {
     private static final String MY_PEER_ID = "7A3F8C2E1B9D5A4F6E0C2D8B3A1F9E7C5D4B6A2C";
 
     public List<String> getPeers(Torrent torrent) {
-        TrackerDTO trackerDTO = TrackerDTO.builder()
+        TrackerDTO trackerDTO = new TrackerDTO.Builder()
                 .info_hash(UrlEncode(torrent.getInfoHash()))
                 .peer_id(UrlEncode(MY_PEER_ID))
                 .port(PORT_NUMBER)
@@ -23,7 +23,6 @@ public class TrackerService {
                 .left(Long.toString(torrent.getLength()))
                 .compact("1")
                 .build();
-
 
         byte[] response = new TrackerProxy().getPeersFromTracker(torrent.getTrackerUrl(), trackerDTO.toString());
 
