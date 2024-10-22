@@ -41,7 +41,7 @@ public class Torrent {
 
         stringBuilder.append("Tracker URL: ").append(this.trackerUrl).append(System.lineSeparator())
                 .append("Length: ").append(this.length).append(System.lineSeparator())
-                .append("Info Hash: ").append(this.infoHash).append(System.lineSeparator())
+                .append("Info Hash: ").append(byteArrayToHexaDecimal(this.infoHash)).append(System.lineSeparator())
                 .append("Piece Length: ").append(this.pieceLength).append(System.lineSeparator())
                 .append("Piece Hashes:").append(System.lineSeparator());
 
