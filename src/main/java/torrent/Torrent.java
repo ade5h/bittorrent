@@ -14,7 +14,7 @@ import java.util.Map;
 public class Torrent {
     private String trackerUrl;
     private long length;
-    private String infoHash;
+    private byte[] infoHash;
 
     private long pieceLength;
     private List<String> pieceHashes;
@@ -52,12 +52,10 @@ public class Torrent {
         return stringBuilder.toString();
     }
 
-    private String hashTheByteArray(byte[] bytes) throws NoSuchAlgorithmException {
+    private byte[] hashTheByteArray(byte[] bytes) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-1");
         md.update(bytes);
-        byte[] digest = md.digest();
-
-        return byteArrayToHexaDecimal(digest);
+        return md.digest();
     }
 
     private String byteBufferToString(ByteBuffer byteBuffer) {
@@ -86,7 +84,7 @@ public class Torrent {
         return pieceHashes;
     }
 
-    private String byteArrayToHexaDecimal(byte[] bytes) {
+    public static String byteArrayToHexaDecimal(byte[] bytes) {
         StringBuilder hexString = new StringBuilder();
 
         for (byte b : bytes) {
@@ -104,7 +102,7 @@ public class Torrent {
         return length;
     }
 
-    public String getInfoHash() {
+    public byte[] getInfoHash() {
         return infoHash;
     }
 

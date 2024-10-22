@@ -15,7 +15,7 @@ public class TrackerService {
 
     public List<String> getPeers(Torrent torrent) {
         TrackerDTO trackerDTO = new TrackerDTO.Builder()
-                .info_hash(UrlEncode(torrent.getInfoHash()))
+                .info_hash(UrlEncode(Torrent.byteArrayToHexaDecimal(torrent.getInfoHash())))
                 .peer_id(UrlEncode(MY_PEER_ID))
                 .port(PORT_NUMBER)
                 .uploaded("0")
@@ -32,6 +32,7 @@ public class TrackerService {
         return getPeersFromByteBuffer(peersByteBuffer);
     }
 
+    // TODO: Use a library to URLEncode
     private String UrlEncode(String s) {
         StringBuilder stringBuilder = new StringBuilder();
 
